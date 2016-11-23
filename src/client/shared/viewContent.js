@@ -31,7 +31,7 @@ export default {
 
   // content of the `loader` service
   'service:loader': {
-    loading: 'Loading sounds…',
+    loading: 'Chargement&hellip;',
   },
 
   // content of the `locator` service
@@ -53,14 +53,14 @@ export default {
   // content of the `platform` service
   'service:platform': {
     isCompatible: null,
-    errorMessage: 'Sorry,<br />Your device is not compatible with the application.',
-    intro: 'Welcome to',
-    instructions: 'Touch the screen to join !',
+    errorMessage: `Désolé,<br />Votre mobile n'est pas compatible avec l'application.`,
+    intro: '',
+    instructions: `Touchez l'écran pour commencer !`,
   },
 
   // content of the `sync` service
   'service:sync': {
-    wait: `Clock syncing,<br />stand by&hellip;`,
+    wait: `Synchronisation,<br />patientez&hellip;`,
   },
 
   // content of the `survey` scene

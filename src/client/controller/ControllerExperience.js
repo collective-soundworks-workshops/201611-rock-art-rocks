@@ -12,7 +12,8 @@ class ControllerExperience extends soundworks.BasicSharedController {
     this.setGuiOptions('periodAbs', { type: 'slider', size: 'large' });
     this.setGuiOptions('durationAbs', { type: 'slider', size: 'large' });
     this.setGuiOptions('positionVar', { type: 'slider', size: 'large' });
-    this.setGuiOptions('gainMult', { type: 'slider', size: 'large' });
+    // levels
+    this.setGuiOptions('outputGain', { type: 'slider', size: 'large' });
 
     this.setGuiOptions('playerEnabled', { show: false });
     this.setGuiOptions('performerEnabled', { show: false });

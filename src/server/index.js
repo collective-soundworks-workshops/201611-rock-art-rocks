@@ -55,16 +55,18 @@ soundworks.server.setClientConfigDefinition((clientType, config, httpRequest) =>
 
 const sharedParams = soundworks.serviceManager.require('shared-params');
 
-sharedParams.addText('numPlayers', 'num players', 0, ['controller']);
+sharedParams.addText('numPlayers', 'Num Players', 0, ['controller']);
 sharedParams.addEnum('cyclicBuffer', 'Cyclic Buffer', ['record', 'stop'], 'stop');
 // granular engine params
-sharedParams.addNumber('periodAbs', 'periodAbs', 0.02, 0.2, 0.001, 0.05, 'player');
-sharedParams.addNumber('durationAbs', 'durationAbs', 0.01, 0.5, 0.001, 0.2, 'player');
-sharedParams.addNumber('positionVar', 'positionVar', 0.01, 0.5, 0.001, 0.02, 'player');
-sharedParams.addNumber('gainMult', 'gainMult', 0.1, 10, 0.01, 0.25, 'player');
+sharedParams.addNumber('periodAbs', 'Period', 0.02, 0.2, 0.001, 0.05);
+sharedParams.addNumber('durationAbs', 'Duration', 0.01, 0.5, 0.001, 0.2);
+sharedParams.addNumber('positionVar', 'Position Var', 0.01, 0.5, 0.001, 0.02);
+
 // soloist
-sharedParams.addBoolean('playerEnabled', 'playerEnabled', false, ['player', 'soloist', 'performer']);
-sharedParams.addBoolean('performerEnabled', 'performerEnabled', false, ['player', 'soloist', 'performer']);
+sharedParams.addBoolean('playerEnabled', 'Player Enabled', false);
+sharedParams.addBoolean('performerEnabled', 'Performer Enabled', false);
+
+sharedParams.addNumber('outputGain', 'Output Gain', -17, 26, 1, -6);
 
 // create the common server experience for both the soloists and the players
 const controller = new ControllerExperience('controller');

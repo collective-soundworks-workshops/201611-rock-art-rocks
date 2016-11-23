@@ -3,6 +3,17 @@ import Synth from './Synth';
 import Renderer from './Renderer';
 import PitchAndRollEstimator from '../shared/PitchAndRollEstimator.js';
 
+const client = soundworks.client;
+
+
+function dBToLin(val) {
+  return Math.exp(0.11512925464970229 * val); // pow(10, val / 20)
+};
+
+function linToDB(val) {
+  return 8.685889638065035 * Math.log(val); // 20 * log10(val)
+};
+
 // html template used by `View` of the `PlayerExperience`
 const template = `
   <canvas class="background"></canvas>
@@ -23,21 +34,10 @@ const template = `
   </div>
 `;
 
-
-const files = ['/sounds/beats-hh.wav', '/sounds/beats-sd.wav'];
-//const files = ['/sounds/mindbox-extract.mp3'];
-const client = soundworks.client;
-
 const colors = [
-  '#dd0085', // 'pink'
-  '#ee0000', // 'red'
-  '#ff7700', // 'orange'
-  '#ffaa00', // 'yellow'
-  '#43af00', // 'green'
-  '#0062e2', // 'darkBlue'
-  '#009ed8', // 'lightBlue'
-  '#6b7884', // 'grey'
-  '#6700f7', // 'purple'
+  'rgb(255, 112, 0)',
+  'rgb(218, 32, 9)',
+  'rgb(32, 1, 135)',
 ];
 
 export default class PlayerExperience extends soundworks.Experience {
@@ -49,7 +49,7 @@ export default class PlayerExperience extends soundworks.Experience {
     this.platform = this.require('platform', { features: 'web-audio' });
     // this.require('locator');
     this.checkin = this.require('checkin');
-    this.audioBufferManager = this.require('audio-buffer-manager', { files });
+    this.audioBufferManager = this.require('audio-buffer-manager');
     this.sharedParams = this.require('shared-params');
 
     this.sharedConfig = this.require('shared-config', {
@@ -102,8 +102,9 @@ export default class PlayerExperience extends soundworks.Experience {
       this.synth.setPositionVar(value);
     });
 
-    this.sharedParams.addParamListener('gainMult', (value) => {
-      this.synth.setGain(value);
+    this.sharedParams.addParamListener('outputGain', (value) => {
+      const linearGain = dBToLin(value);
+      this.synth.setGain(linearGain);
     });
 
     const playParamName = (this.kind === 'player') ? 'playerEnabled' : 'performerEnabled';
